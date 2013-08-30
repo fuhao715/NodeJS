@@ -5,9 +5,7 @@
  * Time: 下午3:15
  * To change this template use File | Settings | File Templates.
  */
-var Parser = function(){
-
-};
+var Parser = function(){};
 
 Parser.prototype.parse = function(text){
     var results ={};
