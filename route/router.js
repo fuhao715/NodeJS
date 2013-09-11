@@ -8,6 +8,7 @@
 var querystring = require('querystring');
 var fs = require('fs');
 var url = require("url");
+var requestHandlers = require('./requestHandlers');
 var firstPage = function(res){
     console.log("Request firstPage.");
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -33,11 +34,21 @@ var login = function(req, res) {
         })
 };
 
+var handle = {};
+handle["/"] = requestHandlers.start;
+handle["/start"] = requestHandlers.start;
+handle["/upload"] = requestHandlers.upload;
 
 function router(req,res){
     var pathname = url.parse(req.url).pathname;
     console.log("Request for " + pathname + " received.");
     console.log("About to route a request for " + pathname);
+    if (typeof handle[pathname] === 'function') {
+        handle[pathname]();
+    } else {
+        console.log("No request handler found for " + pathname);
+    }
+
     if(req.url == '/'){
         return firstPage(res);
     }
