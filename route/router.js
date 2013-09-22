@@ -9,7 +9,7 @@ var url = require("url");
 var requestHandlers = require('./requestHandlers');
 
 var handle = {};
-handle["/favicon.ico"] = requestHandlers.start;
+// handle["/favicon.ico"] = requestHandlers.start;
 handle["/"] = requestHandlers.start;
 handle["/start"] = requestHandlers.start;
 handle["/login"] = requestHandlers.login;
@@ -23,6 +23,9 @@ function router(req,res){
         handle[pathname](req,res);
     } else {
         console.log("No request handler found for " + pathname);
+        res.writeHead(404, {"Content-Type": "text/plain"});
+        res.write("404 Not found");
+        res.end();
     }
 }
 exports.router = router;
