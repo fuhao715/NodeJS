@@ -22,7 +22,7 @@ console.log('Server running on port 8080.');
 function start(){
     var requestFunction = function(req, res){
         console.log("Request received.");
-        req.setEncoding('utf8');//请求编码
+        // req.setEncoding('utf8');//请求编码
         route.router(req,res);
     };
 

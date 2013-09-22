@@ -9,11 +9,13 @@ var url = require("url");
 var requestHandlers = require('./requestHandlers');
 
 var handle = {};
-// handle["/favicon.ico"] = requestHandlers.start;
+handle["/favicon.ico"] = requestHandlers.start;
 handle["/"] = requestHandlers.start;
 handle["/start"] = requestHandlers.start;
 handle["/login"] = requestHandlers.login;
+handle["/uploadInit"] = requestHandlers.uploadInit;
 handle["/upload"] = requestHandlers.upload;
+handle["/show"] = requestHandlers.show;
 
 function router(req,res){
     var pathname = url.parse(req.url).pathname;
