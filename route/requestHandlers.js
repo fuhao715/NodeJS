@@ -8,7 +8,6 @@
 var querystring = require('querystring');
 var fs = require('fs');
 var formidable = require("formidable");
-var util = require('util');
 function start(req,res) {
     console.log("Request handler 'start' was called.");
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -50,10 +49,11 @@ function upload(req,res) {
 
         var readStream = fs.createReadStream(files.upload.path)
         var writeStream = fs.createWriteStream("./app/test.jpg");
-        // readStream.pipe(writeStream)
-        util.pump(readStream, writeStream, function() {
+        readStream.pipe(writeStream) ;
+
+        /*util.pump(readStream, writeStream, function() {
             fs.unlinkSync(files.upload.path);
-        });
+        });*/
 
 
         res.writeHead(200, {"Content-Type": "text/html"});
