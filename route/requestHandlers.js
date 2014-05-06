@@ -20,12 +20,12 @@ function login(req, res) {
     var info ='';
     req.addListener('data', function(postDataChunk){
         info += postDataChunk;
-        console.log("Received POST data chunk '"+postDataChunk + "'.");
+        console.log("Received POST data chunk 数据 '"+postDataChunk + "'.");
     })
         .addListener('end', function(){
             info = querystring.parse(info);
             res.setHeader('content-type','text/html; charset=UTF-8');//响应编码，如果是html,写在head中也可以
-
+            console.log("接收数据为：" + info.name);
             if(info.name == '张' && info.pwd =='1'){
                 res.end('login success 成功 ' + info.name);
             }else{
@@ -47,7 +47,7 @@ function upload(req,res) {
     form.parse(req, function(error, fields, files) {
         // fs.renameSync(files.upload.path, "./app/test.jpg");
 
-        var readStream = fs.createReadStream(files.upload.path)
+        var readStream = fs.createReadStream(files.upload.path);
         var writeStream = fs.createWriteStream("./app/test.jpg");
         readStream.pipe(writeStream) ;
 
